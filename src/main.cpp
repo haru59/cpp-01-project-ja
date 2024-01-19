@@ -38,16 +38,11 @@ int main(){
     while(test == 1){
         show_state();//現在の状態を表示する
         input_command(); //ユーザーのコマンド入力
-        //std::cout << "Current Direction"<< direction << std::endl; //あとでコメントアウト
         change_direction(); //ユーザーのコマンドによって車の向きを変える
-        //std::cout << "Direction after change" << direction << std::endl; //あとでコメントアウト
-        //std::cout << "Current speed" << speed << std::endl;//あとでコメントアウト
         change_speed();//ユーザーのコマンドによって車速を変える
-        //std::cout << "Speed after change" << speed << std::endl;//あとでコメントアウト
         change_fuel();//ユーザーのコマンドによってガソリンの残量を変える
-        //std::cout << "Fuel after change" << fuel << std::endl;//あとでコメントアウト
-        move_car(); //車両を移動し地図を表示
-        judge_location();
+        move_car(); //車両を移動する
+        judge_location(); //車両の現在地を地図上で表示＋範囲外に車両が行ったらエラーを出す
         }
     }
 
@@ -162,7 +157,7 @@ int change_speed(){
         if(speed == 0){ //すでにスピードがゼロならゼロのままにする
             speed = 0;
         }else{
-            speed = speed - 1; 
+            speed = speed - 1;
         }
     }else if(command == 6){
         speed = 0;;
@@ -186,38 +181,30 @@ int change_fuel(){
 // 概要：ユーザーコマンドが”continue straight”の時に現在の車速、車の向きに応じて車を移動する
 
 int move_car(){
-    if(direction == 1 && command ==3 && speed != 0){ //画面上の上（北）に移動
+    if(direction == 1 && command ==3 && speed != 0){ //画面上の上（北）に移動、行のみ変更で列は動かさない
         after_rows = start_rows-(1*speed);
         after_column = start_column;
-        //std::cout << "After rows =" << after_rows << std::endl; //行が動いているか確認
-        //std::cout << "After column =" << after_column << std::endl; //列が動いているか確認
         map[after_rows][after_column] = 'P';
         map[start_rows][start_column] =' ';
         start_rows = after_rows;
         start_column = after_column;
-    }else if(direction == 2 && command ==3 && speed != 0){ //画面上の右（西）に移動
+    }else if(direction == 2 && command ==3 && speed != 0){ //画面上の右（西）に移動、列のみ変更で行は動かさない
         after_rows = start_rows;
         after_column = start_column+(1*speed);
-        //std::cout << "After rows =" << after_rows << std::endl; //行が動いているか確認
-        //std::cout << "After column =" << after_column << std::endl; //列が動いているか確認
         map[after_rows][after_column] = 'P';
         map[start_rows][start_column] =' ';
         start_rows = after_rows;
         start_column = after_column;
-    }else if(direction == 3 && command ==3 && speed != 0){ //画面上の下（南）に移動
+    }else if(direction == 3 && command ==3 && speed != 0){ //画面上の下（南）に移動、行のみ変更で列は動かさない
         after_rows = start_rows+(1*speed);
         after_column = start_column;
-        //std::cout << "After rows =" << after_rows << std::endl; //行が動いているか確認
-        //std::cout << "After column =" << after_column << std::endl; //列が動いているか確認
         map[after_rows][after_column] = 'P';
         map[start_rows][start_column] =' ';
         start_rows = after_rows;
         start_column = after_column;
-    }else if(direction == 4 && command ==3 && speed != 0){ //画面上の左（西）に移動
+    }else if(direction == 4 && command ==3 && speed != 0){ //画面上の左（西）に移動、列のみ変更で行は動かさない
         after_rows = start_rows;
         after_column = start_column-(1*speed);
-        //std::cout << "After rows =" << after_rows << std::endl; //行が動いているか確認
-        //std::cout << "After column =" << after_column << std::endl; //列が動いているか確認
         map[after_rows][after_column] = 'P';
         map[start_rows][start_column] =' ';
         start_rows = after_rows;
@@ -229,7 +216,7 @@ int move_car(){
 
 //######################################################################
 // 関数：judge_location()
-// 概要：車両の現在地を表示＋範囲外に車両が行ったらエラーを出す
+// 概要：車両の現在地を地図上で表示＋範囲外に車両が行ったらエラーを出す
 int judge_location(){
     if(after_rows <= 0 || after_rows >= 9 || after_column <= 0 || after_column >=9){//車両が地図の範囲外の場合
         throw std::out_of_range("Car is in out of map");
