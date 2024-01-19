@@ -96,11 +96,11 @@ void show_state(){
     }else{
         dir ="West";
     }
-    std::cout << "**********Current state list**********: " << speed << std::endl;
+    std::cout << "**********Current state list**********" << std::endl;
     std::cout << "Current car speed: " << speed << std::endl;
     std::cout << "Current fuel level: " << fuel << std::endl;
     std::cout << "Direction the car is facing: " << dir << std::endl;
-    std::cout << "**************************************: " << speed << std::endl;
+    std::cout << "**************************************" << std::endl;
 }
 
 //######################################################################
@@ -108,14 +108,14 @@ void show_state(){
 // 概要：ユーザーのコマンド入力に対応する
 
 int input_command(){
-    std::cout << "***Command list*****************" << std::endl;
-    std::cout << "* 1 : turn left                *" << std::endl;
-    std::cout << "* 2 : turn right               *" << std::endl;
-    std::cout << "* 3 : continue straight        *" << std::endl;
-    std::cout << "* 4 : accelerate               *" << std::endl;
-    std::cout << "* 5 : decelerate               *" << std::endl;
-    std::cout << "* 6 : stop                     *" << std::endl;
-    std::cout << "********************************" << std::endl;
+    std::cout << "*****Command list*****************" << std::endl;
+    std::cout << "*   1 : turn left                *" << std::endl;
+    std::cout << "*   2 : turn right               *" << std::endl;
+    std::cout << "*   3 : continue straight        *" << std::endl;
+    std::cout << "*   4 : accelerate               *" << std::endl;
+    std::cout << "*   5 : decelerate               *" << std::endl;
+    std::cout << "*   6 : stop                     *" << std::endl;
+    std::cout << "**********************************" << std::endl;
     std::cout << "Please enter a command(1 ~ 6):" ;
     std::cin >> command;
     if (command < 1 || command >6 ){
