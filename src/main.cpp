@@ -19,7 +19,7 @@ int change_speed();
 int speed{1}; //現在の車速、初期値1
 
 int change_fuel();
-int fuel{50}; //ガソリン残量、初期値50
+int fuel{3}; //ガソリン残量、初期値50
 
 int move_car();
 int start_rows = 1;
@@ -173,6 +173,12 @@ int change_fuel(){
     if (command == 3){ //前進したときのみガソリンを減らす
         fuel = fuel - (1 * speed); //車速に応じてガソリンを減らす
     }
+    //Add
+    if(fuel == 0){
+        test =0;
+        std::cout << "Gameover" << std::endl;
+    }
+    //Add
     return fuel; 
 }
 
